@@ -27,7 +27,7 @@ void setup() {
 
   Serial.begin(9600);
 
-  on("light", onLight);
+  // on("light", onLight);
   on("go", go);
   on("servo", moveServo);
   on("motorsOn", motorsOn);

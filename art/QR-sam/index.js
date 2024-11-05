@@ -1,6 +1,7 @@
 /*
-QR Blot
-by Sam Liu (@samliu)
+@title: QR Blot
+@author: Sam Liu (@samliu)
+@snapshot: 0.png
 
 This is a custom implementation of https://www.nayuki.io/page/creating-a-qr-code-step-by-step, 
 https://www.thonky.com/qr-code-tutorial/, https://www.qrcode.com/, and 
@@ -940,22 +941,22 @@ function draw(code, lineWidth, drawingSize) {
     return;
   }
   let size = drawingSize;
-  let pxSize = size/code.length;
+  let pxSize = size / code.length;
   setDocDimensions(size, size);
-  let t = createTurtle();
+  let t = new bt.Turtle();
 
   function drawPixel(x, y, noFill = false) {
     t.down()
     if (!noFill) {
-      let lineCount = Math.ceil((pxSize - lineWidth * 3 - lineWidth) / (lineWidth * 2))*2;
-      if (pxSize - (lineCount+3)*lineWidth > 0) {
-        lineCount+=2;
+      let lineCount = Math.ceil((pxSize - lineWidth * 3 - lineWidth) / (lineWidth * 2)) * 2;
+      if (pxSize - (lineCount + 3) * lineWidth > 0) {
+        lineCount += 2;
       } else {
         lineCount += 1;
       }
-      let spacing = (pxSize-lineWidth) / (lineCount+1);
+      let spacing = (pxSize - lineWidth) / (lineCount + 1);
       console.log(spacing);
-      t.jump([x*pxSize + lineWidth / 2 * 3, size - y*pxSize - lineWidth / 2 - spacing])
+      t.jump([x * pxSize + lineWidth / 2 * 3, size - y * pxSize - lineWidth / 2 - spacing])
       for (let i = 0; i < pxSize - lineWidth * 3 - lineWidth; i += lineWidth * 2) {
         t.forward(pxSize - lineWidth * 3)
         t.right(90)
@@ -966,7 +967,7 @@ function draw(code, lineWidth, drawingSize) {
         t.forward(spacing);
         t.left(90)
       }
-      let heightDrawn = (Math.ceil((pxSize - lineWidth * 3 - lineWidth) / (lineWidth * 2))*2+3)*lineWidth
+      let heightDrawn = (Math.ceil((pxSize - lineWidth * 3 - lineWidth) / (lineWidth * 2)) * 2 + 3) * lineWidth
       if (pxSize - heightDrawn > 0) {
         t.forward(pxSize - lineWidth * 3)
         t.right(90)
@@ -978,10 +979,10 @@ function draw(code, lineWidth, drawingSize) {
         t.forward(pxSize - lineWidth * 3)
       }
     } else {
-      t.jump([x*pxSize + lineWidth / 2 * 3, size - y*pxSize - lineWidth / 2 * 3])
-      t.goTo([x*pxSize + (pxSize - lineWidth / 2 * 3), size - y*pxSize - (pxSize - lineWidth / 2 * 3)])
+      t.jump([x * pxSize + lineWidth / 2 * 3, size - y * pxSize - lineWidth / 2 * 3])
+      t.goTo([x * pxSize + (pxSize - lineWidth / 2 * 3), size - y * pxSize - (pxSize - lineWidth / 2 * 3)])
     }
-    t.jump([x*pxSize + lineWidth / 2, size - y*pxSize - lineWidth / 2])
+    t.jump([x * pxSize + lineWidth / 2, size - y * pxSize - lineWidth / 2])
     for (let i = 0; i < 4; i++) {
       t.forward(pxSize - lineWidth)
       t.right(90)
@@ -1000,9 +1001,9 @@ function draw(code, lineWidth, drawingSize) {
     }
   }
 
-  drawTurtles([
-    t
-  ]);
+  drawLines(
+    t.lines()
+  );
 }
 
 qrCode(message, errorCorrection);
